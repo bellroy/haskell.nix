@@ -76,7 +76,14 @@ in pkgs.runCommand (name + "-coverage-report")
 
         mkdir -p "$(dirname $newTixFile)"
         # Copy over the tix file verbatim
-        cp --no-preserve=ownership,mode "$tixFile" "$newTixFile"
+        pwd
+        ls -lh "$tixFile"
+        ls -lhd "$(dirname $newTixFile)"
+        whoami
+        if [ ! -f "$newTixFile" ]; then
+          cp "$tixFile" "$newTixFile"
+        fi
+        ls -lh "$newTixFile"
 
         # Add the tix file to our list
         echo $newTixFile >> $tixFiles
